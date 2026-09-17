@@ -9,17 +9,16 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Setup Gradle 8.5
-        uses: gradle/actions/setup-gradle@v3
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: 8.5
-      - name: Build APK
-        run: |
+      - run: |
           gradle wrapper --gradle-version 8.5
           chmod +x gradlew
           echo "sdk.dir=$ANDROID_HOME" > local.properties
           ./gradlew assembleDebug --stacktrace
       - uses: actions/upload-artifact@v4
         with:
-          name: Dalili-APK-58-Wilaya
+          name: Dalili-APK
           path: app/build/outputs/apk/debug/*.apk
